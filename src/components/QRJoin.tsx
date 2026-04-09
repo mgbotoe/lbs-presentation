@@ -11,8 +11,8 @@ export function QRJoin({ audienceUrl }: QRJoinProps) {
         <QRCodeSVG
           value={audienceUrl}
           size={200}
-          bgColor="transparent"
-          fgColor="#f0f0f0"
+          bgColor="#ffffff"
+          fgColor="#1a1a1a"
           level="M"
         />
       </div>

@@ -5,7 +5,7 @@ export const mainScreens: Screen[] = [
     id: 'intro',
     type: 'intro',
     title:
-      'Thanks for making time this week.\nThis is an open conversation — no right answers, no performance review.\nWe want to understand what\'s actually happening with AI tools at LBS — what\'s working, what\'s not, and what would make it better.',
+      'Thanks for making time.\nI just want an honest picture of where things are with AI at LBS — what\'s working, what\'s not, and what would actually help.\nAll votes are anonymous. No right answers.',
     facilitatorNote: 'Get eye contact before moving. Don\'t rush this.',
   },
   {
@@ -26,12 +26,10 @@ export const mainScreens: Screen[] = [
     sectionLabel: 'Baseline',
     title: 'How much of the work you produce today is AI-assisted?',
     pollOptions: [
-      { id: 'q5-none', label: 'None — I do it myself' },
-      { id: 'q5-lt25', label: 'Less than 25%' },
-      { id: 'q5-25to50', label: '25–50%' },
-      { id: 'q5-50to75', label: '50–75%' },
-      { id: 'q5-gt75', label: 'More than 75%' },
-      { id: 'q5-na', label: 'Not applicable to my role' },
+      { id: 'q5-lt25', label: 'Less than 25% of my work' },
+      { id: 'q5-25to50', label: 'About 25–50%' },
+      { id: 'q5-gt50', label: 'More than 50%' },
+      { id: 'q5-na', label: 'Not really applicable to my role' },
     ],
   },
   {
@@ -58,19 +56,6 @@ export const mainScreens: Screen[] = [
     subtitle: 'Documentation, analysis, testing, planning?',
     facilitatorNote:
       'This is where non-devs find their voice. Don\'t let devs dominate.',
-  },
-  {
-    id: 'q2',
-    type: 'poll',
-    sectionLabel: '01 — What\'s already working',
-    title: 'Where do you use AI tools most right now?',
-    pollOptions: [
-      { id: 'q2-code', label: 'Writing or reviewing code' },
-      { id: 'q2-docs', label: 'Documentation or writing' },
-      { id: 'q2-research', label: 'Research / answering questions' },
-      { id: 'q2-agents', label: 'I\'ve built custom tools or agents' },
-      { id: 'q2-none', label: 'I\'m not using them yet' },
-    ],
   },
   {
     id: 'divider-02',
@@ -160,30 +145,15 @@ export const mainScreens: Screen[] = [
       'Let them paint it. Don\'t correct or narrow. This is use case and tooling gap gold.',
   },
   {
-    id: 'q6',
-    type: 'poll',
-    sectionLabel: '03 — Use cases',
-    title: 'How do you feel about AI doing the majority of your work?',
-    pollOptions: [
-      { id: 'q6-excited', label: 'Excited — I want to get there' },
-      { id: 'q6-open', label: 'Open to it, with the right guardrails' },
-      { id: 'q6-nervous', label: 'Nervous — quality and review are real concerns' },
-      { id: 'q6-no', label: 'Not for me — I prefer doing it myself' },
-      { id: 'q6-depends', label: 'Depends entirely on the type of work' },
-      { id: 'q6-na', label: 'Not applicable to my role' },
-    ],
-  },
-  {
     id: 'q7',
     type: 'poll',
     sectionLabel: '03 — Use cases',
-    title: 'What does your role look like in two years?',
+    title: 'How do you see AI assisting you with your job in two years?',
     pollOptions: [
-      { id: 'q7-same', label: 'Mostly the same, with better tools alongside me' },
-      { id: 'q7-strategic', label: 'More strategic / directing work, less doing it manually' },
-      { id: 'q7-early', label: 'Too early to say — things are moving too fast' },
-      { id: 'q7-uncertain', label: 'I\'m genuinely uncertain / worried' },
-      { id: 'q7-new', label: 'I\'ll be doing things that don\'t exist yet' },
+      { id: 'q7-same', label: 'Similar to now, just faster and smoother' },
+      { id: 'q7-strategic', label: 'Handling the repetitive parts so I can focus on harder problems' },
+      { id: 'q7-new', label: 'Enabling work I can\'t do today at all' },
+      { id: 'q7-unsure', label: 'Too early to say — still figuring it out' },
     ],
   },
   {
@@ -210,10 +180,9 @@ export const mainScreens: Screen[] = [
     title:
       'Would a monthly update — here\'s what\'s new, here\'s what other teams are doing — be something you\'d actually read?',
     pollOptions: [
-      { id: 'qr-yes', label: 'Yes, absolutely' },
-      { id: 'qr-maybe', label: 'Maybe — depends on the format' },
+      { id: 'qr-yes', label: 'Yes' },
+      { id: 'qr-maybe', label: 'Depends' },
       { id: 'qr-no', label: 'Probably not' },
-      { id: 'qr-short', label: 'Only if it\'s very short' },
     ],
   },
   {

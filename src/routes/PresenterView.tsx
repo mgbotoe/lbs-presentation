@@ -127,9 +127,19 @@ export function PresenterView() {
       </div>
 
       <Navigation current={screenIndex} total={mainScreens.length} onBack={goBack} onNext={goNext}>
-        <div className="audience-counter">
-          <span className={`audience-counter-dot${connected ? '' : ' disconnected'}`} />
-          <span>{audienceCount} connected</span>
+        <div className="nav-meta">
+          <div className="audience-counter">
+            <span className={`audience-counter-dot${connected ? '' : ' disconnected'}`} />
+            <span>{audienceCount} connected</span>
+          </div>
+          <div className="export-links">
+            <a className="export-btn" href="/results/summary" download>
+              Save Summary
+            </a>
+            <a className="export-btn" href="/results.csv" download>
+              CSV
+            </a>
+          </div>
         </div>
       </Navigation>
     </div>
@@ -159,44 +169,44 @@ function ScreenRenderer({
     case 'intro':
       return (
         <div className="screen-intro">
-          <p className="screen-text">{screen.title}</p>
-          <QRJoin audienceUrl={audienceUrl} />
-          {screen.facilitatorNote && (
-            <p className="facilitator-note">{screen.facilitatorNote}</p>
-          )}
+          <div className="intro-layout">
+            <div className="intro-text-side">
+              <h1 className="intro-heading">LBS AI Fireside</h1>
+              <p className="screen-text">{screen.title}</p>
+            </div>
+            <div className="intro-qr-side">
+              <QRJoin audienceUrl={audienceUrl} />
+            </div>
+          </div>
         </div>
       );
     case 'close':
       return (
         <div className="screen-close">
           <p className="screen-text">{screen.title}</p>
-          {screen.facilitatorNote && (
-            <p className="facilitator-note">{screen.facilitatorNote}</p>
-          )}
         </div>
       );
 
-    case 'divider':
+    case 'divider': {
+      const parts = screen.dividerTitle?.split('—').map((s) => s.trim()) ?? [];
+      const divNum = parts[0] ?? '';
+      const divLabel = parts[1] ?? screen.dividerTitle ?? '';
       return (
         <div className="screen-divider">
-          <h1 className="divider-title">{screen.dividerTitle}</h1>
+          <span className="divider-number">{divNum}</span>
+          <h1 className="divider-title">{divLabel}</h1>
           {screen.dividerDuration && (
             <span className="divider-duration">{screen.dividerDuration}</span>
           )}
-          {screen.facilitatorNote && (
-            <p className="facilitator-note">{screen.facilitatorNote}</p>
-          )}
         </div>
       );
+    }
 
     case 'discussion':
       return (
         <div className="screen-discussion">
           <h1 className="question-text">{screen.title}</h1>
           {screen.subtitle && <p className="question-subtitle">{screen.subtitle}</p>}
-          {screen.facilitatorNote && (
-            <p className="facilitator-note">{screen.facilitatorNote}</p>
-          )}
         </div>
       );
 
@@ -205,9 +215,6 @@ function ScreenRenderer({
       return (
         <div className="screen-poll">
           <h1 className="question-text">{screen.title}</h1>
-          {screen.facilitatorNote && (
-            <p className="facilitator-note">{screen.facilitatorNote}</p>
-          )}
           <div className="poll-controls">
             <button className="poll-action-btn" onClick={onToggleReveal}>
               {isRevealed ? 'Hide Results' : 'Show Results'}

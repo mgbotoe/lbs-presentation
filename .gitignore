@@ -2,3 +2,15 @@ node_modules
 dist
 *.local
 .DS_Store
+
+# Session data
+results.json
+lbs-fireside-results-*.html
+lbs-fireside-results-*.csv
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
