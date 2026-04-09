@@ -228,6 +228,181 @@ wss.on('connection', (ws) => {
   });
 });
 
+// ---- Session backup (printable question sheet) ----
+
+app.get('/backup', (_req, res) => {
+  const screens = [
+    // ── BASELINE ──────────────────────────────────────────────────────────
+    { section: 'Baseline', type: 'poll', q: 'How often do you use AI tools in your work?',
+      options: ['Every day', 'A few times a week', 'Occasionally — a few times a month', 'Still experimenting / early days', 'Rarely or never'] },
+    { section: 'Baseline', type: 'poll', q: 'Honestly — how do you feel about AI in your work right now?',
+      options: ['Genuinely excited — actively exploring', 'Cautiously optimistic — watching how it develops', 'Skeptical — haven\'t seen enough to believe the hype', 'Concerned — about quality, job impact, or direction', 'Neutral — haven\'t thought about it much'] },
+    { section: 'Baseline', type: 'poll', q: 'How confident do you feel using AI tools effectively?',
+      options: ['Very confident — I know how to get good results', 'Getting there — trial and error mostly', 'Not very confident — I have access but struggle to get value', 'No experience yet to judge'] },
+    { section: 'Baseline', type: 'poll', q: 'How much of the work you produce today is AI-assisted?',
+      options: ['Less than 25% of my work', 'About 25–50%', 'More than 50%', 'I don\'t really use AI tools yet'] },
+    // ── 01 ────────────────────────────────────────────────────────────────
+    { section: '01 — What\'s already working', type: 'discussion', q: 'For those using AI tools — what\'s working well? For those who haven\'t started — what\'s holding you back from trying?' },
+    { section: '01 — What\'s already working', type: 'discussion', q: 'What are you using AI for outside of writing code?' },
+    // ── 02 ────────────────────────────────────────────────────────────────
+    { section: '02 — What\'s getting in the way', type: 'discussion', q: 'What\'s getting in the way of using AI tools more?' },
+    { section: '02 — What\'s getting in the way', type: 'discussion', q: 'Is there a type of work where you tried it and it just didn\'t help?' },
+    { section: '02 — What\'s getting in the way', type: 'poll', q: 'What\'s your single biggest blocker to using AI tools more?',
+      options: ['I don\'t have access to the tools I need', 'The tools available don\'t fit how I actually work', 'I don\'t know what I\'d actually use it for', 'Too busy — no time to experiment', 'I don\'t trust the output enough to rely on it', 'No real blocker — I use it freely'] },
+    // ── 03 ────────────────────────────────────────────────────────────────
+    { section: '03 — Use cases', type: 'discussion', q: 'What\'s the most repetitive or painful part of your job you wish you could hand off?' },
+    { section: '03 — Use cases', type: 'discussion', q: 'Where in your work do you think AI could genuinely help — something you haven\'t actually tried yet?' },
+    { section: '03 — Use cases', type: 'discussion', q: 'Where do the tools fall short — not because of access, but because they just don\'t map to how LBS actually works?' },
+    // ── 04 ────────────────────────────────────────────────────────────────
+    { section: '04 — Where we\'re headed', type: 'discussion', q: 'If AI was working well for this team six months from now — what would look different from today?' },
+    { section: '04 — Where we\'re headed', type: 'discussion', q: 'AI agents can take a sequence of actions autonomously — browsing, writing code, running tests, filing tickets. Where do you see that being useful in LBS products or in how your team works?' },
+    { section: '04 — Where we\'re headed', type: 'poll', q: 'How familiar are you with AI agents right now?',
+      options: ['Heard of them but haven\'t explored', 'I\'ve used one or experimented with them', 'I\'ve built or deployed something agentic', 'First time hearing the term'] },
+    { section: '04 — Where we\'re headed', type: 'poll', q: 'How do you see AI assisting you with your job in two years?',
+      options: ['Similar to now, just faster and smoother', 'Handling the repetitive parts so I can focus on harder problems', 'Enabling work I can\'t do today at all', 'Too early to say — still figuring it out'] },
+    // ── 05 ────────────────────────────────────────────────────────────────
+    { section: '05 — Staying connected', type: 'discussion', q: 'If you have an idea or a question after today — where do you naturally go to raise it?' },
+    { section: '05 — Staying connected', type: 'poll', q: 'Would you actually read a monthly AI update — what\'s new, what other teams are doing?',
+      options: ['Yes', 'Maybe — depends on the format', 'Probably not'] },
+  ];
+
+  const LETTERS = 'ABCDEFGHIJ';
+  let currentSection = '';
+  let pollCount = 0;
+  let bodyHtml = '';
+
+  for (const screen of screens) {
+    if (screen.section !== currentSection) {
+      currentSection = screen.section;
+      bodyHtml += `<div class="section-heading">${currentSection}</div>`;
+    }
+    if (screen.type === 'poll') {
+      pollCount++;
+      const opts = (screen.options ?? []).map((o, i) =>
+        `<div class="opt"><span class="opt-letter">${LETTERS[i]}</span>${o}</div>`
+      ).join('');
+      bodyHtml += `
+        <div class="block poll-block">
+          <div class="block-tag">Poll ${pollCount}</div>
+          <div class="block-q">${screen.q}</div>
+          <div class="opts">${opts}</div>
+          <div class="tally-row">${(screen.options ?? []).map((_, i) =>
+            `<div class="tally-cell"><span class="tally-letter">${LETTERS[i]}</span><div class="tally-box"></div></div>`
+          ).join('')}</div>
+        </div>`;
+    } else {
+      bodyHtml += `
+        <div class="block disc-block">
+          <div class="block-tag">Discussion</div>
+          <div class="block-q">${screen.q}</div>
+          <div class="notes-lines"><div></div><div></div><div></div></div>
+        </div>`;
+    }
+  }
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>LBS AI Pulse — Session Backup</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      padding: 2rem 2.5rem 4rem;
+      font-size: 13px;
+    }
+    .page { max-width: 800px; margin: 0 auto; }
+    .header {
+      border-top: 4px solid #4000a5;
+      padding-top: 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .header-left {}
+    .header-label {
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.18em; color: #7523ff; margin-bottom: 0.35rem;
+    }
+    h1 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
+    .header-note { font-size: 0.75rem; color: #848484; text-align: right; max-width: 200px; line-height: 1.4; }
+    .section-heading {
+      font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.15em; color: #4000a5;
+      margin: 1.75rem 0 0.625rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid #e0dcea;
+    }
+    .block {
+      margin-bottom: 0.875rem;
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #e0dcea;
+      page-break-inside: avoid;
+    }
+    .poll-block { background: #faf9ff; }
+    .disc-block { background: #fff; }
+    .block-tag {
+      font-size: 0.625rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.14em; color: #848484; margin-bottom: 0.375rem;
+    }
+    .poll-block .block-tag { color: #7523ff; }
+    .block-q {
+      font-size: 0.9375rem; font-weight: 600; color: #1a1a1a;
+      line-height: 1.4; margin-bottom: 0.625rem;
+    }
+    .opts { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.75rem; }
+    .opt { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.875rem; color: #333; }
+    .opt-letter {
+      font-weight: 700; color: #4000a5; min-width: 1rem;
+      font-size: 0.75rem;
+    }
+    .tally-row {
+      display: flex; gap: 0.75rem; margin-top: 0.25rem;
+      border-top: 1px dashed #e0dcea; padding-top: 0.5rem;
+    }
+    .tally-cell { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+    .tally-letter { font-size: 0.6875rem; font-weight: 700; color: #7523ff; }
+    .tally-box {
+      width: 32px; height: 22px;
+      border: 1.5px solid #c0b8e0; border-radius: 4px;
+    }
+    .notes-lines { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem; }
+    .notes-lines div { height: 1px; background: #e0dcea; }
+    .footer {
+      margin-top: 2rem; font-size: 0.6875rem; color: #848484;
+      text-align: center; border-top: 1px solid #e0dcea; padding-top: 0.75rem;
+    }
+    @media print {
+      body { padding: 1rem 1.5rem 2rem; }
+      .block { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-left">
+        <p class="header-label">LBS AI Pulse</p>
+        <h1>Session Backup — Questions &amp; Prompts</h1>
+      </div>
+      <div class="header-note">Backup copy if live voting is unavailable.<br>Use tally boxes to count raised hands.</div>
+    </div>
+    ${bodyHtml}
+    <p class="footer">LBS AI Pulse &nbsp;·&nbsp; Generated ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+  </div>
+</body>
+</html>`;
+
+  res.setHeader('Content-Type', 'text/html');
+  res.send(html);
+});
+
 // ---- Results export ----
 
 app.get('/results/summary', (_req, res) => {
