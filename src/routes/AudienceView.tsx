@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useWebSocket } from '../hooks/useWebSocket';
 import type { PollOption, WSMessageToClient } from '../types';
 
@@ -8,7 +8,33 @@ interface ActivePoll {
   options: PollOption[];
 }
 
+function useWakeLock() {
+  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
+
+  const acquire = useCallback(async () => {
+    if (!('wakeLock' in navigator)) return;
+    try {
+      wakeLockRef.current = await navigator.wakeLock.request('screen');
+    } catch {
+      // Device denied or not supported — silent fail
+    }
+  }, []);
+
+  useEffect(() => {
+    acquire();
+    // Re-acquire when tab becomes visible again (e.g. user switches back)
+    const onVisible = () => { if (document.visibilityState === 'visible') acquire(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      wakeLockRef.current?.release();
+    };
+  }, [acquire]);
+}
+
 export function AudienceView() {
+  useWakeLock();
+
   const [poll, setPoll] = useState<ActivePoll | null>(null);
   const [waitingMessage, setWaitingMessage] = useState('Waiting for the next question...');
   const [votedFor, setVotedFor] = useState<Record<string, string>>({});
