@@ -89,10 +89,11 @@ export function AudienceView() {
     return (
       <div className="audience">
         <div className="audience-waiting">
-          <div className="audience-badge">Connected</div>
-          <h1>LBS AI Fireside</h1>
+          <div className="audience-badge">✓ Connected</div>
+          <div className="audience-logo">LBS<span>AI Fireside</span></div>
           <p>{waitingMessage}</p>
           <div className="audience-pulse" />
+          <p className="audience-hint">Your vote is anonymous. Results shown at the presenter's discretion.</p>
         </div>
       </div>
     );
