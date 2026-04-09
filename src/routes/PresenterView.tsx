@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { mainScreens } from '../data/mainScreens';
 import { Navigation } from '../components/Navigation';
 import { QRJoin } from '../components/QRJoin';
@@ -101,6 +101,33 @@ export function PresenterView() {
     setRevealed((prev) => ({ ...prev, [questionId]: !prev[questionId] }));
   }, []);
 
+  // ── Fullscreen ──────────────────────────────────────────────────────────
+  const presenterRef = useRef<HTMLDivElement>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      presenterRef.current?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [toggleFullscreen]);
+  // ────────────────────────────────────────────────────────────────────────
+
   const isDivider = screen.type === 'divider';
 
   const audienceUrl = useMemo(() => {
@@ -109,7 +136,7 @@ export function PresenterView() {
   }, []);
 
   return (
-    <div className={`presenter${isDivider ? ' divider-bg' : ''}`}>
+    <div ref={presenterRef} className={`presenter${isDivider ? ' divider-bg' : ''}`}>
       {screen.sectionLabel && (
         <div className="section-label">{screen.sectionLabel}</div>
       )}
@@ -139,6 +166,18 @@ export function PresenterView() {
             <a className="export-btn" href="/results.csv" download>
               CSV
             </a>
+            <button
+              className={`export-btn fullscreen-btn${isFullscreen ? ' active' : ''}`}
+              onClick={toggleFullscreen}
+              title={isFullscreen ? 'Exit fullscreen (F)' : 'Enter fullscreen (F)'}
+            >
+              {isFullscreen ? (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              )}
+              {isFullscreen ? 'Exit Full' : 'Fullscreen'}
+            </button>
           </div>
         </div>
       </Navigation>

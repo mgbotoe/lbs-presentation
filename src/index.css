@@ -205,6 +205,11 @@ body {
   border-color: rgba(255, 255, 255, 0.65);
 }
 
+.presenter.divider-bg .fullscreen-btn.active {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
 .screen-divider {
   text-align: center;
   animation: screenFadeIn 600ms ease-out;
@@ -512,6 +517,28 @@ body {
   background: var(--accent-dim);
   color: var(--accent);
   border-color: var(--border-accent);
+}
+
+.fullscreen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.fullscreen-btn.active {
+  color: var(--accent);
+  border-color: var(--border-accent);
+}
+
+/* Fullscreen: fill the entire screen */
+.presenter:fullscreen,
+.presenter:-webkit-full-screen {
+  height: 100vh;
+  width: 100vw;
+  padding: 2rem 3.5rem 1.5rem;
 }
 
 /* ===== AUDIENCE COUNTER ===== */
