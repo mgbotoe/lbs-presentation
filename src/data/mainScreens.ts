@@ -255,7 +255,6 @@ export const mainScreens: Screen[] = [
   {
     id: 'close',
     type: 'close',
-    title:
-      'Thank you.\nEverything you shared today goes back to the LBS team so we can act on it.\nIf something comes up after today — reach out directly to me.',
+    title: 'Thank you.',
   },
 ];
