@@ -130,6 +130,19 @@ wss.on('connection', (ws) => {
             ws.send(JSON.stringify({ type: 'waiting', message: 'Waiting for the next question...' }));
           }
         }
+
+        if (msg.role === 'presenter') {
+          // Send current audience count immediately so presenter doesn't see stale 0
+          ws.send(JSON.stringify({ type: 'audience_count', count: audienceCount() }));
+          // Send current vote tally for any active poll
+          if (currentPoll) {
+            ws.send(JSON.stringify({
+              type: 'vote_update',
+              questionId: currentPoll.questionId,
+              votes: getVoteTally(currentPoll.questionId),
+            }));
+          }
+        }
         break;
       }
 
