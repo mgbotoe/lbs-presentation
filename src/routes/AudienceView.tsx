@@ -77,7 +77,7 @@ export function AudienceView() {
     return (
       <div className="audience">
         <div className="audience-connecting">
-          <h1>LBS AI Fireside</h1>
+          <h1>LBS AI Pulse</h1>
           <p>Connecting...</p>
           <div className="audience-pulse" />
         </div>
@@ -90,7 +90,7 @@ export function AudienceView() {
       <div className="audience">
         <div className="audience-waiting">
           <div className="audience-badge">✓ Connected</div>
-          <div className="audience-logo">LBS<span>AI Fireside</span></div>
+          <div className="audience-logo">LBS<span>AI Pulse</span></div>
           <p>{waitingMessage}</p>
           <div className="audience-pulse" />
           <p className="audience-hint">Your vote is anonymous. Results shown at the presenter's discretion.</p>

@@ -210,7 +210,7 @@ function ScreenRenderer({
         <div className="screen-intro">
           <div className="intro-layout">
             <div className="intro-text-side">
-              <h1 className="intro-heading">LBS AI Fireside</h1>
+              <h1 className="intro-heading">LBS AI Pulse</h1>
               <p className="screen-text">{screen.title}</p>
             </div>
             <div className="intro-qr-side">

@@ -267,7 +267,7 @@ app.get('/results/summary', (_req, res) => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LBS AI Fireside — Results</title>
+  <title>LBS AI Pulse — Results</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -327,7 +327,7 @@ app.get('/results/summary', (_req, res) => {
 <body>
   <div class="page">
     <div class="header">
-      <p class="header-label">LBS AI Fireside</p>
+      <p class="header-label">LBS AI Pulse</p>
       <h1>Session Results</h1>
       <p class="header-date">${date}</p>
     </div>
@@ -422,7 +422,7 @@ app.get('/{*splat}', (_req, res) => {
 server.listen(PORT, () => {
   const ip = getLocalIP();
   console.log('');
-  console.log('  LBS Fireside Polling Server');
+  console.log('  LBS AI Pulse — Polling Server');
   console.log('  ─────────────────────────────');
   console.log(`  Presenter:  http://localhost:${PORT}`);
   console.log(`  Audience:   http://${ip}:${PORT}/audience`);
