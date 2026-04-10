@@ -17,11 +17,10 @@ export const mainScreens: Screen[] = [
     sectionLabel: 'Baseline',
     title: 'How often do you use AI tools in your work?',
     pollOptions: [
-      { id: 'q1-daily',         label: 'Every day' },
-      { id: 'q1-weekly',        label: 'A few times a week' },
-      { id: 'q1-occasionally',  label: 'Occasionally, a few times a month' },
-      { id: 'q1-experimenting', label: 'Still experimenting, early days' },
-      { id: 'q1-rarely',        label: 'Rarely or never' },
+      { id: 'q1-daily',        label: 'Every day' },
+      { id: 'q1-weekly',       label: 'A few times a week' },
+      { id: 'q1-occasionally', label: 'Occasionally or still experimenting' },
+      { id: 'q1-rarely',       label: 'Rarely or never' },
     ],
   },
   {
@@ -34,7 +33,6 @@ export const mainScreens: Screen[] = [
       { id: 'qs-cautious',  label: 'Open to it. Still figuring out where it fits for me' },
       { id: 'qs-skeptical', label: 'Not convinced yet. Haven\'t seen enough to change how I work' },
       { id: 'qs-concerned', label: 'Worried about the quality or the direction it\'s heading' },
-      { id: 'qs-neutral',   label: 'Honestly haven\'t given it much thought' },
     ],
   },
   {
