@@ -33,7 +33,7 @@ export const mainScreens: Screen[] = [
       { id: 'qs-excited',   label: 'Excited. I\'m already using it and want to go deeper' },
       { id: 'qs-cautious',  label: 'Open to it. Still figuring out where it fits for me' },
       { id: 'qs-skeptical', label: 'Not convinced yet. Haven\'t seen enough to change how I work' },
-      { id: 'qs-concerned', label: 'Worried about the quality, the direction, or what it means for my role' },
+      { id: 'qs-concerned', label: 'Worried about the quality or the direction it\'s heading' },
       { id: 'qs-neutral',   label: 'Honestly haven\'t given it much thought' },
     ],
   },
