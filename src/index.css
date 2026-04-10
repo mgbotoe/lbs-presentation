@@ -43,10 +43,34 @@ html, body, #root {
 body {
   font-family: 'TWK Lausanne Pan 200', 'TWK Lausanne Pan 400', system-ui,
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
   background: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior: none;
+}
+
+/* Remove tap delay and default tap highlight on all interactive elements */
+button,
+a,
+[role='button'] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Honor reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ===== PRESENTER LAYOUT ===== */
@@ -571,7 +595,11 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
-  padding: 1.5rem;
+  padding:
+    max(1.25rem, env(safe-area-inset-top))
+    max(1.25rem, env(safe-area-inset-right))
+    max(1.25rem, env(safe-area-inset-bottom))
+    max(1.25rem, env(safe-area-inset-left));
   position: relative;
 }
 
@@ -777,4 +805,379 @@ body {
   border-radius: 999px;
   border: 1px solid var(--border);
   letter-spacing: 0.02em;
+  word-break: break-all;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* ===================================================================
+   MOBILE / RESPONSIVE
+   Breakpoints follow Material 3 + iOS HIG guidance:
+   - ≤ 768px  : tablet portrait / large phones
+   - ≤ 600px  : phones
+   - ≤ 380px  : small phones (iPhone SE, etc.)
+   =================================================================== */
+
+/* ===== TABLET / LARGE PHONE (≤ 768px) ===== */
+@media (max-width: 768px) {
+  html, body, #root {
+    /* Allow the page to scroll on narrow viewports — presenter view
+       content may exceed the short side on phones held in portrait. */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .presenter {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding:
+      max(1.25rem, env(safe-area-inset-top))
+      max(1.25rem, env(safe-area-inset-right))
+      max(1rem, env(safe-area-inset-bottom))
+      max(1.25rem, env(safe-area-inset-left));
+  }
+
+  .presenter:fullscreen,
+  .presenter:-webkit-full-screen {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+
+  .screen-content {
+    padding-top: 1rem;
+  }
+
+  /* Intro: stack the text and QR vertically */
+  .intro-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .intro-text-side {
+    width: 100%;
+  }
+
+  .intro-text-side .screen-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .intro-heading {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Divider */
+  .divider-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .divider-number {
+    font-size: 0.6875rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .divider-duration {
+    font-size: 0.8125rem;
+    padding: 0.4rem 1.1rem;
+  }
+
+  /* Discussion / poll headings */
+  .question-text {
+    font-size: 1.625rem;
+    line-height: 1.25;
+  }
+
+  .screen-poll .question-text {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+  }
+
+  .question-subtitle {
+    font-size: 1rem;
+  }
+
+  .screen-text {
+    font-size: 1.25rem;
+    line-height: 1.55;
+  }
+
+  .screen-close .screen-text {
+    font-size: 1.375rem;
+  }
+
+  /* Poll controls — allow wrapping so they never overflow */
+  .poll-controls {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .poll-total-votes {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Poll option rows — hit targets and label wrapping */
+  .poll-option-row {
+    padding: 0.625rem 0.75rem;
+    gap: 0.625rem;
+  }
+
+  .tally-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .poll-option-header {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+  }
+
+  .poll-option-label {
+    font-size: 0.9375rem;
+    flex: 1 1 60%;
+    min-width: 0;
+  }
+
+  .poll-option-count {
+    font-size: 1rem;
+  }
+
+  /* Navigation: compact the footer for small widths */
+  .navigation {
+    padding-top: 1rem;
+    gap: 0.75rem;
+  }
+
+  .nav-center {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .export-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .export-btn {
+    font-size: 0.6875rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  /* QR code */
+  .qr-code-wrapper {
+    padding: 0.875rem;
+  }
+  .qr-code-wrapper svg {
+    width: 180px;
+    height: 180px;
+  }
+  .qr-url {
+    font-size: 0.625rem;
+  }
+
+  /* Audience view */
+  .audience-question {
+    font-size: 1.125rem;
+    margin-bottom: 1.125rem;
+  }
+
+  .audience-option-btn {
+    min-height: 56px;
+    padding: 0.875rem 1rem;
+    font-size: 0.9375rem;
+  }
+
+  .audience-waiting h1,
+  .audience-connecting h1 {
+    font-size: 1.125rem;
+  }
+}
+
+/* ===== PHONE (≤ 600px) ===== */
+@media (max-width: 600px) {
+  .presenter {
+    padding:
+      max(1rem, env(safe-area-inset-top))
+      max(1rem, env(safe-area-inset-right))
+      max(0.875rem, env(safe-area-inset-bottom))
+      max(1rem, env(safe-area-inset-left));
+  }
+
+  .section-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+  }
+
+  .intro-text-side .screen-text {
+    font-size: 1rem;
+  }
+
+  .divider-title {
+    font-size: 1.75rem;
+  }
+
+  .question-text {
+    font-size: 1.375rem;
+  }
+
+  .screen-poll .question-text {
+    font-size: 1.1875rem;
+  }
+
+  .question-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .screen-text {
+    font-size: 1.0625rem;
+  }
+
+  .screen-close .screen-text {
+    font-size: 1.1875rem;
+  }
+
+  /* Audience: pad less, use bigger tap targets */
+  .audience {
+    padding:
+      max(1rem, env(safe-area-inset-top))
+      max(1rem, env(safe-area-inset-right))
+      max(1rem, env(safe-area-inset-bottom))
+      max(1rem, env(safe-area-inset-left));
+  }
+
+  .audience-question {
+    font-size: 1.0625rem;
+    margin-bottom: 1rem;
+  }
+
+  .audience-option-btn {
+    min-height: 60px;
+    padding: 1rem 1.125rem;
+    font-size: 1rem;
+  }
+
+  .audience-options {
+    gap: 0.5rem;
+  }
+
+  /* Navigation: allow the footer to wrap if needed */
+  .navigation {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+
+  .nav-meta {
+    order: 3;
+    width: 100%;
+  }
+
+  .export-btn {
+    font-size: 0.625rem;
+    padding: 0.3rem 0.625rem;
+  }
+
+  .qr-code-wrapper svg {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* ===== SMALL PHONE (≤ 380px) ===== */
+@media (max-width: 380px) {
+  .presenter {
+    padding:
+      max(0.875rem, env(safe-area-inset-top))
+      max(0.875rem, env(safe-area-inset-right))
+      max(0.75rem, env(safe-area-inset-bottom))
+      max(0.875rem, env(safe-area-inset-left));
+  }
+
+  .divider-title {
+    font-size: 1.5rem;
+  }
+
+  .question-text {
+    font-size: 1.25rem;
+  }
+
+  .screen-poll .question-text {
+    font-size: 1.125rem;
+  }
+
+  .audience-question {
+    font-size: 1rem;
+  }
+
+  .audience-option-btn {
+    min-height: 56px;
+    padding: 0.875rem 1rem;
+    font-size: 0.9375rem;
+  }
+
+  .poll-option-row {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .poll-option-label {
+    font-size: 0.875rem;
+  }
+
+  .qr-code-wrapper svg {
+    width: 140px;
+    height: 140px;
+  }
+
+  .qr-url {
+    font-size: 0.5625rem;
+  }
+}
+
+/* ===== LANDSCAPE PHONE (short viewport) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .presenter {
+    padding: 0.75rem 1.25rem 0.625rem;
+  }
+
+  .screen-content {
+    padding-top: 0.5rem;
+  }
+
+  .divider-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .intro-layout {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  .qr-code-wrapper svg {
+    width: 120px;
+    height: 120px;
+  }
+
+  .navigation {
+    padding-top: 0.5rem;
+  }
+
+  /* Audience in landscape: reduce vertical padding */
+  .audience {
+    padding:
+      max(0.625rem, env(safe-area-inset-top))
+      max(1rem, env(safe-area-inset-right))
+      max(0.625rem, env(safe-area-inset-bottom))
+      max(1rem, env(safe-area-inset-left));
+  }
+
+  .audience-option-btn {
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+  }
 }
