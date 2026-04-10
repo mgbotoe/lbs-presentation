@@ -173,8 +173,7 @@ export const mainScreens: Screen[] = [
     id: 'disc-agents',
     type: 'discussion',
     sectionLabel: '04 - Where we\'re headed',
-    title: 'AI agents can take a sequence of actions on their own: browse, write code, run tests, file tickets.',
-    subtitle: 'Where do you see that being useful in LBS products or in how your team works?',
+    title: 'AI agents can act on their own: browse, write code, run tests, file tickets. Where does that fit for LBS?',
     facilitatorNote:
       'Gauge awareness before diving in. If the room is blank, explain briefly: think of it as AI that can do a multi-step task end-to-end without you driving each step.',
   },
