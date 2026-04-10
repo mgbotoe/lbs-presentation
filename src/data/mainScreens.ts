@@ -178,18 +178,6 @@ export const mainScreens: Screen[] = [
       'Gauge awareness before diving in. If the room is blank, explain briefly: think of it as AI that can do a multi-step task end-to-end without you driving each step.',
   },
   {
-    id: 'q-agents',
-    type: 'poll',
-    sectionLabel: '04 - Where we\'re headed',
-    title: 'How familiar are you with AI agents right now?',
-    pollOptions: [
-      { id: 'qa-heard', label: 'Heard of them but haven\'t explored' },
-      { id: 'qa-used',  label: 'I\'ve used one or experimented with them' },
-      { id: 'qa-built', label: 'I\'ve built or deployed something agentic' },
-      { id: 'qa-new',   label: 'First time hearing the term' },
-    ],
-  },
-  {
     id: 'q7',
     type: 'poll',
     sectionLabel: '04 - Where we\'re headed',
