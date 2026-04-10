@@ -101,8 +101,8 @@ export const mainScreens: Screen[] = [
     id: 'disc-roadblocks',
     type: 'discussion',
     sectionLabel: '02 - What\'s getting in the way',
-    title: 'Now that you\'ve had hands-on time, what\'s still getting in the way of making this part of how you actually work?',
-    subtitle: 'What would it take for this to feel like a normal part of your day?',
+    title: 'Now that you\'ve had hands-on time, what\'s still getting in the way of going deeper?',
+    subtitle: 'What would it take for this to feel like a normal part of your day, and not something you feel forced into?',
     facilitatorNote:
       'Looking for: time, IT constraints, regulated workflows, tool fit, trust. Don\'t fill silences too fast.',
   },
@@ -121,8 +121,7 @@ export const mainScreens: Screen[] = [
     sectionLabel: '02 - What\'s getting in the way',
     title: 'What\'s your single biggest blocker to using AI tools more?',
     pollOptions: [
-      { id: 'q3-env',     label: 'My environment makes it hard: regulated code, IT restrictions, or toolchain' },
-      { id: 'q3-fit',     label: 'The tools don\'t fit how LBS actually works' },
+      { id: 'q3-env',     label: 'The environment makes it hard: regulated workflows, IT, or toolchain' },
       { id: 'q3-usecase', label: 'I\'m not sure what I\'d actually use it for' },
       { id: 'q3-time',    label: 'Too busy, no time to build the habit' },
       { id: 'q3-trust',   label: 'I don\'t trust the output enough to rely on it' },
