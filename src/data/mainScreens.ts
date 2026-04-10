@@ -28,25 +28,13 @@ export const mainScreens: Screen[] = [
     id: 'q-sentiment',
     type: 'poll',
     sectionLabel: 'Baseline',
-    title: 'Honestly, how do you feel about AI in your work right now?',
+    title: 'Honestly, how do you feel about using AI as part of your work right now?',
     pollOptions: [
-      { id: 'qs-excited',   label: 'Genuinely excited, actively exploring' },
-      { id: 'qs-cautious',  label: 'Cautiously optimistic, watching how it develops' },
-      { id: 'qs-skeptical', label: 'Skeptical, haven\'t seen enough to believe the hype' },
-      { id: 'qs-concerned', label: 'Concerned about quality, job impact, or direction' },
-      { id: 'qs-neutral',   label: 'Neutral, haven\'t thought about it much' },
-    ],
-  },
-  {
-    id: 'q-confidence',
-    type: 'poll',
-    sectionLabel: 'Baseline',
-    title: 'After this week\'s training, how confident are you using Copilot in your actual day-to-day work?',
-    pollOptions: [
-      { id: 'qc-confident', label: 'Confident. I can see exactly where to use it' },
-      { id: 'qc-getting',   label: 'Getting there. I need more practice with real work' },
-      { id: 'qc-low',       label: 'Not very confident. The training helped but I\'m still unsure' },
-      { id: 'qc-none',      label: 'Not confident. It didn\'t click for me yet' },
+      { id: 'qs-excited',   label: 'Excited. I\'m already using it and want to go deeper' },
+      { id: 'qs-cautious',  label: 'Open to it. Still figuring out where it fits for me' },
+      { id: 'qs-skeptical', label: 'Not convinced yet. Haven\'t seen enough to change how I work' },
+      { id: 'qs-concerned', label: 'Worried about the quality, the direction, or what it means for my role' },
+      { id: 'qs-neutral',   label: 'Honestly haven\'t given it much thought' },
     ],
   },
   {
@@ -89,6 +77,18 @@ export const mainScreens: Screen[] = [
   },
 
   // ── 02 WHAT'S GETTING IN THE WAY ─────────────────────────────────────────
+  {
+    id: 'q-confidence',
+    type: 'poll',
+    sectionLabel: '02 - What\'s getting in the way',
+    title: 'After this week\'s training, how confident are you using Copilot in your actual day-to-day work?',
+    pollOptions: [
+      { id: 'qc-confident', label: 'Confident. I can see exactly where to use it' },
+      { id: 'qc-getting',   label: 'Getting there. I need more practice with real work' },
+      { id: 'qc-low',       label: 'Not very confident. The training helped but I\'m still unsure' },
+      { id: 'qc-none',      label: 'Not confident. It didn\'t click for me yet' },
+    ],
+  },
   {
     id: 'divider-02',
     type: 'divider',
