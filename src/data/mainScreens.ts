@@ -119,7 +119,7 @@ export const mainScreens: Screen[] = [
     sectionLabel: '02 - What\'s getting in the way',
     title: 'What\'s your single biggest blocker to using AI tools more?',
     pollOptions: [
-      { id: 'q3-env',     label: 'The environment makes it hard: regulated workflows, IT, or toolchain' },
+      { id: 'q3-env',     label: 'The environment makes it hard: regulated workflows, IT, toolchain, or usage limits' },
       { id: 'q3-usecase', label: 'I\'m not sure what I\'d actually use it for' },
       { id: 'q3-time',    label: 'Too busy, no time to build the habit' },
       { id: 'q3-trust',   label: 'I don\'t trust the output enough to rely on it' },
