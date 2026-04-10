@@ -145,14 +145,6 @@ export const mainScreens: Screen[] = [
       'Best single use case detection question. Frames AI as relief, not productivity theatre.',
   },
   {
-    id: 'disc-legacy',
-    type: 'discussion',
-    sectionLabel: '03 - Use cases',
-    title: 'Where in your work do you think GitHub Copilot could genuinely help, something the training didn\'t cover but you want to explore?',
-    facilitatorNote:
-      'The legacy workflow question. Specific enough that engineers who\'ve been quietly thinking about it will have a real answer. Also opens it up to non-devs.',
-  },
-  {
     id: 'disc-code-review',
     type: 'discussion',
     sectionLabel: '03 - Use cases',
