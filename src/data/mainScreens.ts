@@ -39,7 +39,7 @@ export const mainScreens: Screen[] = [
     id: 'q5',
     type: 'poll',
     sectionLabel: 'Baseline',
-    title: 'How much of your work do you expect GitHub Copilot to touch in a typical week going forward?',
+    title: 'How much of your work do you expect AI tools to touch in a typical week going forward? (GitHub Copilot, M365 Copilot, Cursor, etc.)',
     pollOptions: [
       { id: 'q5-alot',   label: 'A lot. I can see it becoming part of most tasks' },
       { id: 'q5-some',   label: 'Some. Specific tasks where it clearly helps' },
