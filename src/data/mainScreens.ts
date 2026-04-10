@@ -203,7 +203,8 @@ export const mainScreens: Screen[] = [
     id: 'disc-where-go',
     type: 'discussion',
     sectionLabel: '05 - Staying connected',
-    title: 'If you have an idea or a question after today, where do you naturally go to raise it?',
+    title: 'The enterprise team wants to stay connected with LBS and across OpCos, but we don\'t always know how. What would actually work for you?',
+    subtitle: 'What format, cadence, or channel would make it easy to share what\'s working, ask questions, or flag something that needs attention?',
     facilitatorNote:
       'Let them name it. Find out where they actually land, then build the channel around that.',
   },
