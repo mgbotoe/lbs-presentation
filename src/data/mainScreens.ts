@@ -78,6 +78,14 @@ export const mainScreens: Screen[] = [
 
   // ── 02 WHAT'S GETTING IN THE WAY ─────────────────────────────────────────
   {
+    id: 'divider-02',
+    type: 'divider',
+    dividerTitle: '02 - What\'s getting in the way',
+    dividerDuration: '~20 minutes',
+    facilitatorNote:
+      'Goal is honest answers, not a troubleshooting session. Listen and capture. Don\'t defend, explain, or problem-solve in the moment.',
+  },
+  {
     id: 'q-confidence',
     type: 'poll',
     sectionLabel: '02 - What\'s getting in the way',
@@ -88,14 +96,6 @@ export const mainScreens: Screen[] = [
       { id: 'qc-low',       label: 'Not very confident. The training helped but I\'m still unsure' },
       { id: 'qc-none',      label: 'Not confident. It didn\'t click for me yet' },
     ],
-  },
-  {
-    id: 'divider-02',
-    type: 'divider',
-    dividerTitle: '02 - What\'s getting in the way',
-    dividerDuration: '~20 minutes',
-    facilitatorNote:
-      'Goal is honest answers, not a troubleshooting session. Listen and capture. Don\'t defend, explain, or problem-solve in the moment.',
   },
   {
     id: 'disc-roadblocks',
