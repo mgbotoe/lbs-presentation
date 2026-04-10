@@ -212,11 +212,12 @@ export const mainScreens: Screen[] = [
     id: 'q-read',
     type: 'poll',
     sectionLabel: '05 - Staying connected',
-    title: 'Would you actually read a monthly AI update: what\'s new, what other teams are doing?',
+    title: 'What would actually keep you engaged after this week?',
     pollOptions: [
-      { id: 'qr-yes',   label: 'Yes' },
-      { id: 'qr-maybe', label: 'Maybe, depends on the format' },
-      { id: 'qr-no',    label: 'Probably not' },
+      { id: 'qr-sessions', label: 'Monthly AI exchange sessions with peers' },
+      { id: 'qr-update',   label: 'A written update on what\'s new and what other teams are doing' },
+      { id: 'qr-shared',   label: 'A shared space for agents, prompts, and workflows' },
+      { id: 'qr-none',     label: 'Probably nothing, I\'ll figure it out on my own' },
     ],
   },
 
