@@ -39,7 +39,7 @@ export const mainScreens: Screen[] = [
     id: 'q5',
     type: 'poll',
     sectionLabel: 'Baseline',
-    title: 'How much of your work do you expect Copilot to touch in a typical week going forward?',
+    title: 'How much of your work do you expect GitHub Copilot to touch in a typical week going forward?',
     pollOptions: [
       { id: 'q5-alot',   label: 'A lot. I can see it becoming part of most tasks' },
       { id: 'q5-some',   label: 'Some. Specific tasks where it clearly helps' },
@@ -87,7 +87,7 @@ export const mainScreens: Screen[] = [
     id: 'q-confidence',
     type: 'poll',
     sectionLabel: '02 - What\'s getting in the way',
-    title: 'After this week\'s training, how confident are you using Copilot in your actual day-to-day work?',
+    title: 'After this week\'s training, how confident are you using GitHub Copilot in your actual day-to-day work?',
     pollOptions: [
       { id: 'qc-confident', label: 'Confident. I can see exactly where to use it' },
       { id: 'qc-getting',   label: 'Getting there. I need more practice with real work' },
@@ -108,7 +108,7 @@ export const mainScreens: Screen[] = [
     id: 'disc-didnt-help',
     type: 'discussion',
     sectionLabel: '02 - What\'s getting in the way',
-    title: 'Was there something you tried during the training where Copilot just didn\'t help, or made things harder?',
+    title: 'Where has GitHub Copilot let you down, during the training or in actual work?',
     subtitle: 'What happened?',
     facilitatorNote:
       'This often surfaces regulated workflow friction and legacy codebase pain.',
@@ -148,7 +148,7 @@ export const mainScreens: Screen[] = [
     id: 'disc-legacy',
     type: 'discussion',
     sectionLabel: '03 - Use cases',
-    title: 'Where in your work do you think Copilot could genuinely help, something the training didn\'t cover but you want to explore?',
+    title: 'Where in your work do you think GitHub Copilot could genuinely help, something the training didn\'t cover but you want to explore?',
     facilitatorNote:
       'The legacy workflow question. Specific enough that engineers who\'ve been quietly thinking about it will have a real answer. Also opens it up to non-devs.',
   },
